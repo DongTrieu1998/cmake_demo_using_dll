@@ -2,6 +2,8 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 
+import myCalc.custom 1.0
+
 Window {
     id: root
     width: 320
@@ -24,9 +26,12 @@ Window {
                 width: parent.width
                 height: 100
                 color: "#FF99CC"
+                property alias resultText : resultText.text
+
                 Text {
+                    id: resultText
                     anchors.centerIn: parent
-                    text: qsTr("0")
+                    text: "0"
                 }
             }
 
@@ -36,6 +41,8 @@ Window {
                 height: 50
                 text: "Submit"
 
+                onClicked: visualResult.resultText = "Clicked"
+
             }
 
             Rectangle {
@@ -43,10 +50,17 @@ Window {
                 width: parent.width
                 height: 50
                 color: "#FF99CC"
+                property alias operant1Text: operand1_text.text
+
                 TextField {
+                    id: operand1_text
                     anchors.centerIn: parent
                     font.bold: true
                     placeholderText: "Operand 1"
+
+                    onTextEdited: {
+                        console.log("User input: " + operand1_text.text)
+                    }
                 }
             }
 
@@ -55,10 +69,18 @@ Window {
                 width: parent.width
                 height: 50
                 color: "#FF99CC"
+                property alias operant2Text: operand2_text.text
+
                 TextField {
+                    id: operand2_text
                     anchors.centerIn: parent
                     font.bold: true
                     placeholderText: "Operand 2"
+
+                    onTextEdited: {
+                        console.log("User input: " + operand2_text.text)
+                    }
+
                 }
             }
 
@@ -67,6 +89,12 @@ Window {
                 width: parent.width
                 height: 50
                 text: "Add"
+                onClicked: {
+                    console.log(operand1.operant1Text)
+                    console.log(operand2.operant2Text)
+                    visualResult.resultText = my_calc.add(operand1.operant1Text,
+                                            operand2.operant2Text)
+                }
             }
 
             Button {
@@ -74,6 +102,13 @@ Window {
                 width: parent.width
                 height: 50
                 text: "Subtract"
+
+                onClicked: {
+                    console.log(operand1.operant1Text)
+                    console.log(operand2.operant2Text)
+                    visualResult.resultText = my_calc.subtract(operand1.operant1Text,
+                                            operand2.operant2Text)
+                }
             }
 
             Button {
@@ -81,6 +116,13 @@ Window {
                 width: parent.width
                 height: 50
                 text: "Multiply"
+
+                onClicked: {
+                    console.log(operand1.operant1Text)
+                    console.log(operand2.operant2Text)
+                    visualResult.resultText = my_calc.multiply(operand1.operant1Text,
+                                            operand2.operant2Text)
+                }
             }
 
             Button {
@@ -88,6 +130,13 @@ Window {
                 width: parent.width
                 height: 50
                 text: "Devide"
+
+                onClicked: {
+                    console.log(operand1.operant1Text)
+                    console.log(operand2.operant2Text)
+                    visualResult.resultText = my_calc.devide(operand1.operant1Text,
+                                            operand2.operant2Text)
+                }
             }
         }
 

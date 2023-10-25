@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-//#include "my_math/addition.h"
+
+#include <QQmlContext>
+#include "calculator_qml.h"
 
 
 int main(int argc, char *argv[])
@@ -11,6 +13,11 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    Calculator_QML my_calc;
+    engine.rootContext()->setContextProperty("my_calc", &my_calc);
+    qmlRegisterType<Calculator_QML>("myCalc.custom", 1, 0, "My_Calc");
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {

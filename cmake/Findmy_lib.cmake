@@ -46,47 +46,20 @@ unset(_cmake_targets_not_defined)
 unset(_cmake_expected_targets)
 
 
-# The installation prefix configured by this project.
-set(_IMPORT_PREFIX "D:/TEST/calculator_lib/Cmake")
-
 # Create imported target my_lib
 add_library(my_lib SHARED IMPORTED)
 
 set_target_properties(my_lib PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
+  INTERFACE_INCLUDE_DIRECTORIES "D:/TEST/calculator_lib/my_lib/include"
 )
 
-# Load information for each installed configuration.
-file(GLOB _cmake_config_files "${CMAKE_CURRENT_LIST_DIR}/my_lib-config-*.cmake")
-foreach(_cmake_config_file IN LISTS _cmake_config_files)
-  include("${_cmake_config_file}")
-endforeach()
-unset(_cmake_config_file)
-unset(_cmake_config_files)
-
-# Cleanup temporary variables.
-set(_IMPORT_PREFIX)
-
-# Loop over all imported files and verify that they actually exist
-foreach(_cmake_target IN LISTS _cmake_import_check_targets)
-  foreach(_cmake_file IN LISTS "_cmake_import_check_files_for_${_cmake_target}")
-    if(NOT EXISTS "${_cmake_file}")
-      message(FATAL_ERROR "The imported target \"${_cmake_target}\" references the file
-   \"${_cmake_file}\"
-but this file does not exist.  Possible reasons include:
-* The file was deleted, renamed, or moved to another location.
-* An install or uninstall procedure did not complete successfully.
-* The installation package was faulty and contained
-   \"${CMAKE_CURRENT_LIST_FILE}\"
-but not all the files it references.
-")
-    endif()
-  endforeach()
-  unset(_cmake_file)
-  unset("_cmake_import_check_files_for_${_cmake_target}")
-endforeach()
-unset(_cmake_target)
-unset(_cmake_import_check_targets)
+# Import target "my_lib" for configuration "Debug"
+set_property(TARGET my_lib APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+set_target_properties(my_lib PROPERTIES
+  IMPORTED_IMPLIB_DEBUG "D:/TEST/build-calculator_lib-Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/my_lib/my_lib.lib"
+  IMPORTED_LINK_DEPENDENT_LIBRARIES_DEBUG "Qt5::Core"
+  IMPORTED_LOCATION_DEBUG "D:/TEST/build-calculator_lib-Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/my_lib/my_lib.dll"
+  )
 
 # This file does not depend on other imported targets which have
 # been exported from the same project but in a separate export set.

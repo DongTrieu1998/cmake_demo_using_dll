@@ -9,11 +9,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#list(APPEND CMAKE_MODULE_PATH
-#    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
-#)
+list(APPEND CMAKE_MODULE_PATH
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+)
 
-find_package(my_lib CONFIG REQUIRED)
+find_package(my_lib REQUIRED)
 
 #find_library(my_lib ${CMAKE_CURRENT_SOURCE_DIR}/my_lib)
 
