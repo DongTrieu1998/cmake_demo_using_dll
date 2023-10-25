@@ -9,24 +9,16 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#append your MODULE to ${CMAKE_MODULE_PATH}
 list(APPEND CMAKE_MODULE_PATH
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
 )
 
+#Find your package
 find_package(my_lib REQUIRED)
-
-#find_library(my_lib ${CMAKE_CURRENT_SOURCE_DIR}/my_lib)
-
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
-#find_package(${CMAKE_SOURCE_DIR}/CMake/)
-
-#set(MY_LIB_PATH "C:/Users/TrieuBui/source/repos/MathLibrary/")
-#set(MY_INCLUDE_PATH "${PROJECT_SOURCE_DIR}/MathLibrary/include/")
-
-#find_path(MY_CALC_PATH my_calc_lib PATHS ${PROJECT_SOURCE_DIR}/my_calc_lib/include/)
-#find_library(MY_CALC_LIB C:/Users/TrieuBui/source/repos/MathLibrary/Debug/)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -61,12 +53,8 @@ target_link_libraries(Calculator_qml
   PRIVATE
   Qt::Core
   Qt::Quick
-#  C:/Users/TrieuBui/source/repos/MathLibrary/Debug/
-#  ${MY_LIB_PATH}
-  my_lib
+  my_lib #link your .h file to project
 )
-
-#target_include_directories(Calculator_qml PRIVATE ${myLibLib})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
